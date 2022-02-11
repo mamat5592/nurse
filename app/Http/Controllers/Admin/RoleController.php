@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Role::class, 'role');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +21,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if(!Gate::allows('view-roles')){
-            abort(403);
-        }
-
         $roles = Role::all();
 
         return view('roles', compact('roles'));
