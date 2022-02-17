@@ -10,5 +10,5 @@ Route::prefix('admin')->middleware(['auth', 'can:view-admin-panel'])->group(func
     })->name('admin-panel');
 
     Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
+    Route::resource('permissions', PermissionController::class)->except(['create', 'store', 'destroy']);
 });
